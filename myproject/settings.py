@@ -27,8 +27,8 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.113', '.ngrok-free.app']
-ALLOWED_HOSTS = ['creme-tubeless-pesticide.ngrok-free.dev']
-
+# ALLOWED_HOSTS = ['creme-tubeless-pesticide.ngrok-free.dev']
+ALLOWED_HOSTS = ['gopnath-temple.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
