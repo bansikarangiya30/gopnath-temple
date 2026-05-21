@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gopnath Mahadev | ગોપનાથ મહાદેવ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #D4511E;
+    --deep-saffron: #A33A0D;
+    --gold: #C8941C;
+    --cream: #FAF5EC;
+    --stone: #7A6850;
+    --dark: #1C1209;
+    --text: #2D1F0C;
+    --muted: #6B5A40;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #1C1209 0%, #3D2409 40%, #5C3410 100%);
+  }
+
+  .hero-img {
+    position: absolute; inset: 0;
+    background-image: url('https://www.jamnagar.org/gophill.jpg'), url('https://img.youtube.com/vi/wwtSGhxS3Eo/maxresdefault.jpg');
+    background-size: cover;
+    background-position: center top;
+    opacity: 0.45;
+    animation: heroZoom 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+  }
+
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(28,18,9,0.3) 0%, rgba(28,18,9,0.1) 40%, rgba(28,18,9,0.8) 100%);
+  }
+
+  .hero-deco {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 800px;
+    opacity: 0.15;
+  }
+
+  .hero-content {
+    position: relative; z-index: 10;
+    padding: 2rem;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-om {
+    font-size: 3.5rem;
+    color: #F5C843;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 30px rgba(245,200,67,0.6);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { text-shadow: 0 0 20px rgba(245,200,67,0.4); }
+    50% { text-shadow: 0 0 50px rgba(245,200,67,0.9); }
+  }
+
+  .hero-gujarati {
+    font-family: 'Tiro Devanagari Sanskrit', serif;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    color: #F5C843;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  }
+
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: #FFF8E7;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-shadow: 2px 4px 12px rgba(0,0,0,0.9);
+    line-height: 1.1;
+    margin: 0.3rem 0;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: rgba(255,240,200,0.85);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    margin-top: 0.5rem;
+  }
+
+  .hero-divider {
+    width: 120px; height: 2px;
+    background: linear-gradient(90deg, transparent, #C8941C, transparent);
+    margin: 1.2rem auto;
+  }
+
+  .hero-rating {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(28,18,9,0.6);
+    border: 1px solid rgba(200,148,28,0.5);
+    border-radius: 40px;
+    padding: 8px 20px;
+    color: #F5C843;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .stars { color: #F5C843; font-size: 1rem; letter-spacing: 2px; }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    color: rgba(255,240,200,0.6); font-size: 0.75rem; letter-spacing: 0.2em;
+    text-transform: uppercase; font-family: 'Cinzel', serif;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%,100%{transform:translateX(-50%) translateY(0)}
+    50%{transform:translateX(-50%) translateY(-8px)}
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--dark);
+    border-bottom: 1px solid rgba(200,148,28,0.3);
+    display: flex; align-items: center; justify-content: center;
+    gap: 0;
+    padding: 0;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,240,200,0.7);
+    text-decoration: none;
+    padding: 14px 20px;
+    transition: color 0.2s, border-bottom-color 0.2s;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  nav a:hover { color: #F5C843; border-bottom-color: #C8941C; }
+
+  /* SECTIONS */
+  section { padding: 5rem 1.5rem; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: var(--dark);
+    line-height: 1.2;
+  }
+
+  .section-title-light { color: #FFF8E7; }
+
+  .gold-line {
+    width: 60px; height: 2px;
+    background: var(--gold);
+    margin: 1rem 0 1.5rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-img-wrap {
+    position: relative;
+  }
+
+  .about-img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .about-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #5C3410 0%, #3D2409 100%);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+    color: rgba(245,200,67,0.5);
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+  }
+
+  .about-img-placeholder .big-om {
+    font-size: 5rem;
+    color: rgba(245,200,67,0.3);
+  }
+
+  .about-frame {
+    position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .about-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--saffron);
+    color: #FFF8E7;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    padding: 16px 20px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .about-badge .big-num {
+    display: block; font-size: 2rem; font-weight: 700; line-height: 1;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .highlight-quote {
+    border-left: 3px solid var(--gold);
+    padding-left: 1.2rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--stone);
+  }
+
+  /* STATS */
+  .stats-bar {
+    background: var(--dark);
+    padding: 3rem 1.5rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(200,148,28,0.2);
+    border: 1px solid rgba(200,148,28,0.2);
+    max-width: 900px; margin: 0 auto;
+  }
+
+  .stat-item {
+    background: var(--dark);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #F5C843;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,240,200,0.5);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'Cinzel', serif;
+    margin-top: 4px;
+  }
+
+  /* GALLERY */
+  .gallery-section {
+    background: #F2EAD8;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+    margin-top: 2rem;
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .gallery-item.tall { grid-row: span 2; }
+  .gallery-item.wide { grid-column: span 2; }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    min-height: 200px;
+  }
+
+  .gallery-item:hover img { transform: scale(1.05); }
+
+  .gallery-item .caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(28,18,9,0.85));
+    color: rgba(255,240,200,0.9);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    padding: 24px 12px 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .gallery-item:hover .caption { opacity: 1; }
+
+  /* VIDEO */
+  .video-section { background: #1C1209; }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .video-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,148,28,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .video-card:hover { border-color: rgba(200,148,28,0.6); }
+
+  .video-thumb {
+    width: 100%; aspect-ratio: 16/9;
+    background: #2D1F0C;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .play-btn {
+    position: absolute;
+    width: 56px; height: 56px;
+    background: rgba(200,148,28,0.9);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .play-btn:hover { transform: scale(1.1); background: var(--saffron); }
+  .play-btn::after {
+    content: '';
+    border-left: 20px solid white;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    margin-left: 4px;
+  }
+
+  .video-info { padding: 12px 14px; }
+  .video-info h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    color: rgba(255,240,200,0.9);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .video-info p {
+    font-size: 0.75rem;
+    color: rgba(255,240,200,0.4);
+    font-family: 'Cinzel', serif;
+    margin-bottom: 6px;
+  }
+  .video-yt-link {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(200,148,28,0.7);
+    text-decoration: none;
+    border: 1px solid rgba(200,148,28,0.25);
+    padding: 4px 10px;
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .video-yt-link:hover { color: rgba(200,148,28,1); border-color: rgba(200,148,28,0.6); }
+
+  /* HISTORY TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold) 0%, transparent 100%);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    animation: fadeIn 0.6s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .timeline-dot {
+    position: absolute; left: -2.5rem;
+    top: 0; width: 16px; height: 16px;
+    background: var(--gold);
+    border: 3px solid var(--cream);
+    border-radius: 50%;
+    margin-left: -7px;
+  }
+
+  .timeline-date {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--saffron);
+    text-transform: uppercase;
+  }
+
+  .timeline-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* INFO CARDS */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .info-card {
+    background: white;
+    border: 1px solid rgba(200,148,28,0.15);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: box-shadow 0.3s;
+  }
+
+  .info-card:hover { box-shadow: 0 8px 30px rgba(200,148,28,0.1); }
+
+  .info-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .info-card h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .info-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  /* MAP */
+  .map-section { background: var(--dark); }
+
+  .map-container {
+    margin-top: 2rem;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(200,148,28,0.3);
+    position: relative;
+  }
+
+  .map-container iframe {
+    width: 100%; height: 480px; display: block; border: none;
+  }
+
+  .map-overlay-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: rgba(200,148,28,0.15);
+    margin-top: 1px;
+  }
+
+  .map-info-item {
+    background: rgba(255,255,255,0.03);
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+  }
+
+  .map-info-item .label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,240,200,0.4);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .map-info-item .value {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    color: #F5C843;
+  }
+
+  /* REVIEWS */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .review-card {
+    background: white;
+    border: 1px solid rgba(200,148,28,0.12);
+    border-radius: 4px;
+    padding: 1.5rem;
+  }
+
+  .review-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.6rem; }
+
+  .review-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .review-author {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--stone);
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0E0905;
+    color: rgba(255,240,200,0.5);
+    text-align: center;
+    padding: 3rem 1.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+  }
+
+  footer .footer-om { font-size: 2.5rem; color: rgba(245,200,67,0.3); margin-bottom: 1rem; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 9999;
+    align-items: center; justify-content: center;
+    flex-direction: column;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 4px; }
+  .lightbox-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    color: rgba(255,240,200,0.7); font-size: 2rem; cursor: pointer;
+    background: none; border: none; font-family: serif;
+    line-height: 1;
+  }
+
+  .divider-deco {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.4em;
+    padding: 2rem 0;
+    opacity: 0.4;
+  }
+
+  .upload-btn {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--dark);
+    text-transform: uppercase;
+    border: 1px solid var(--gold);
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+
+  .upload-btn:hover {
+    background: var(--gold);
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-badge { bottom: -10px; right: -10px; padding: 12px 14px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item.tall { grid-row: span 1; }
+    .gallery-item.wide { grid-column: span 1; }
+    .info-grid { grid-template-columns: 1fr; }
+    .video-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .map-overlay-info { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-om">ॐ</div>
+    <div class="hero-gujarati">ગોપનાથ મહાદેવ</div>
+    <div class="hero-divider"></div>
+    <h1 class="hero-title">Gopnath Mahadev</h1>
+    <p class="hero-sub">Moti Gop, Jamnagar · Gujarat</p>
+    <div class="hero-rating">
+      <span class="stars">★★★★★</span>
+      <span>4.7 · 884 Reviews · Google Maps</span>
+    </div>
+  </div>
+  <div class="scroll-hint">▾ &nbsp; Scroll to Explore &nbsp; ▾</div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#videos">Videos</a>
+  <a href="#history">History</a>
+  <a href="#visit">Visit</a>
+  <a href="#map">Map</a>
+  <a href="#reviews">Reviews</a>
+</nav>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <div class="about-frame"></div>
+        <img src="https://www.jamnagar.org/g1.jpg"
+             onerror="this.src='https://img.youtube.com/vi/K93UYOOxC4I/maxresdefault.jpg'"
+             alt="Gopnath Mahadev Temple"
+             class="about-img">
+        <div class="about-badge">
+          <span class="big-num">6th</span>
+          Century<br>Temple
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-label">Ancient Shiva Shrine | પ્રાચીન શિવ મંદિર</div>
+        <h2 class="section-title">One of Gujarat's<br>Oldest Temples</h2>
+        <div class="gold-line"></div>
+        <p>Perched atop the scenic Gop Dungar (Gop Hill) in Jamjodhpur Taluka, the Gopnath Mahadev Temple is a hidden gem that blends ancient history, architectural intrigue, and breathtaking natural beauty. The temple is dedicated to Lord Shiva and is considered one of the oldest surviving stone temples in Gujarat.</p>
+        
+        <p style="font-family: 'Tiro Devanagari Sanskrit', serif; font-size: 1.15rem; color: var(--saffron); line-height: 1.6;">
+          જામજોધપુર તાલુકામાં આવેલા ગોપ ડુંગર પર બિરાજમાન ગોપનાથ મહાદેવનું મંદિર ગુજરાતના સૌથી પ્રાચીન મંદિરોમાંનું એક છે. છઠ્ઠી સદીમાં મૈત્રક કાળ દરમિયાન બનેલું આ મંદિર તેની અનોખી સ્થાપત્યકલા અને કુદરતી સૌંદર્ય માટે જાણીતું છે.
+        </p>
+
+        <blockquote class="highlight-quote">
+          "Its calm atmosphere and scenic surroundings make it a wonderful spot for meditation and prayer — a must-visit for devotees of Lord Shiva."
+        </blockquote>
+        <p>The temple is approximately 28 kilometres from Lalpur and about 60 km from Jamnagar city. There are two ways to reach the top of the hill — either by stairs or by vehicle via a motorable road all the way to the top.</p>
+        <p>The Shivlinga here is particularly sacred — believed to be one of the oldest in Saurashtra, comparable in antiquity to Somnath. During Shravan Amavasya, thousands of devotees visit for darshan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-num">6th c.</span>
+      <span class="stat-label">Est. Century</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">4.7 ★</span>
+      <span class="stat-label">Google Rating</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">23 ft</span>
+      <span class="stat-label">Temple Height</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">24/7</span>
+      <span class="stat-label">Open All Year</span>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery-section">
+  <div class="container">
+    <div class="section-label">Photo Gallery</div>
+    <h2 class="section-title">Darshan & Views</h2>
+    <div class="gold-line"></div>
+
+    <!-- Upload Button Section -->
+    <div style="margin-bottom: 2rem; display: flex; justify-content: flex-end;">
+      <form id="upload-form" method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="gallery-upload" class="upload-btn">
+          Upload Photo / Video
+        </label>
+        <input type="file" id="gallery-upload" name="files" style="display: none;" multiple accept="image/*,video/*" onchange="handleFileSelect(this)">
+      </form>
+    </div>
+
+    <!-- Uploaded Files Section -->
+    {% if uploaded_urls %}
+    <div class="uploaded-gallery" style="margin-bottom: 2rem;">
+      <h3 style="font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem;">Your Uploaded Photos</h3>
+      <div class="uploaded-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+        {% for url in uploaded_urls %}
+        <div class="uploaded-item" style="border: 1px solid var(--gold); border-radius: 8px; overflow: hidden;">
+          <img src="{{ url }}" alt="Uploaded image" style="width: 100%; height: 150px; object-fit: cover;" loading="lazy">
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="gallery-grid">
+
+      <!-- REAL PHOTO 1 — Gopnath Mahadev Temple (jamnagar.org) -->
+      <div class="gallery-item tall" onclick="openLightbox(this)">
+        <img src="https://www.jamnagar.org/g1.jpg"
+             onerror="this.src='https://img.youtube.com/vi/K93UYOOxC4I/hqdefault.jpg'"
+             alt="Gopnath Mahadev Temple" loading="lazy">
+        <div class="caption">GOPNATH MAHADEV TEMPLE</div>
+      </div>
+
+      <!-- REAL PHOTO 2 — Gopnath Hill (jamnagar.org) -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://www.jamnagar.org/gophill.jpg"
+             onerror="this.src='https://img.youtube.com/vi/FpTWzucUZUY/hqdefault.jpg'"
+             alt="Gopnath Hill" loading="lazy">
+        <div class="caption">GOP HILL</div>
+      </div>
+
+      <!-- REAL PHOTO 3 — 600 Steps to Gopnath (jamnagar.org) -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://www.jamnagar.org/steps2gopnath.jpg"
+             onerror="this.src='https://img.youtube.com/vi/042u3U7GK5M/hqdefault.jpg'"
+             alt="600 Steps to Gopnath" loading="lazy">
+        <div class="caption">600 STEPS TO THE TOP</div>
+      </div>
+
+      <!-- YouTube maxres — Monsoon Valley of God (wide panorama) -->
+      <div class="gallery-item wide" onclick="openLightbox(this)">
+        <img src="https://img.youtube.com/vi/wwtSGhxS3Eo/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/wwtSGhxS3Eo/hqdefault.jpg'"
+             alt="Gopnath Mahadev Monsoon Panorama" loading="lazy">
+        <div class="caption">MONSOON · VALLEY OF GOD · HILLTOP PANORAMA</div>
+      </div>
+
+      <!-- YouTube maxres — Hill Station -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://img.youtube.com/vi/FpTWzucUZUY/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/FpTWzucUZUY/hqdefault.jpg'"
+             alt="Gopnath Hill Wind Farms" loading="lazy">
+        <div class="caption">WINDMILLS · GOP HILL</div>
+      </div>
+
+      <!-- Wikipedia Commons — Ancient Gop Temple architecture -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Gop_temple.jpg/800px-Gop_temple.jpg"
+             alt="6th Century Gop Temple Architecture Jinavari" loading="lazy">
+        <div class="caption">6TH CENTURY JINAVARI TEMPLE</div>
+      </div>
+
+      <!-- YouTube maxres — RJ Photography -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://img.youtube.com/vi/K93UYOOxC4I/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/K93UYOOxC4I/hqdefault.jpg'"
+             alt="Gop Hill Photography" loading="lazy">
+        <div class="caption">GOP HILL PHOTOGRAPHY</div>
+      </div>
+
+      <!-- YouTube maxres — Jamnagar to Gopnath -->
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="https://img.youtube.com/vi/LEVgyMe6Dac/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/LEVgyMe6Dac/hqdefault.jpg'"
+             alt="Gopnath Mahadev Temple Jamnagar" loading="lazy">
+        <div class="caption">TEMPLE DARSHAN VIEW</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos" class="video-section">
+  <div class="container">
+    <div class="section-label" style="color:rgba(200,148,28,0.8)">Darshan Videos</div>
+    <h2 class="section-title section-title-light">Watch & Experience</h2>
+    <div class="gold-line"></div>
+
+    <!-- Inline Video Player — uses nocookie domain, opens YouTube if embed blocked -->
+    <div id="video-player-wrap" style="display:none; margin-bottom:2rem; border-radius:4px; overflow:hidden; border:1px solid rgba(200,148,28,0.4);">
+      <div style="position:relative; padding-bottom:56.25%; height:0; background:#0a0604;">
+        <iframe id="yt-player" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
+        <!-- Fallback shown if embed fails -->
+        <div id="yt-fallback" style="display:none;position:absolute;inset:0;background:#0a0604;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
+          <div style="color:rgba(245,200,67,0.9);font-family:'Cinzel',serif;font-size:0.9rem;letter-spacing:0.1em;text-align:center;">This video cannot be embedded.<br>Click below to watch on YouTube.</div>
+          <a id="yt-fallback-link" href="#" target="_blank"
+            style="background:rgba(200,148,28,0.9);color:#fff;font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.15em;padding:12px 28px;text-decoration:none;border-radius:2px;text-transform:uppercase;">
+            ▶ Watch on YouTube
+          </a>
+        </div>
+      </div>
+      <div style="padding:10px 16px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.4);">
+        <span id="yt-title" style="font-family:'Cinzel',serif;font-size:0.8rem;color:rgba(255,240,200,0.7);letter-spacing:0.05em;"></span>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <a id="yt-open-link" href="#" target="_blank"
+            style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.1em;color:rgba(200,148,28,0.8);text-decoration:none;text-transform:uppercase;">
+            YouTube ↗
+          </a>
+          <button onclick="closePlayer()" style="background:none;border:1px solid rgba(200,148,28,0.4);color:rgba(255,240,200,0.6);font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.1em;padding:6px 14px;cursor:pointer;border-radius:2px;">✕ CLOSE</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('wwtSGhxS3Eo','Gopnath Mahadev — Valley of God, Monsoon Vlog')">
+          <img src="https://img.youtube.com/vi/wwtSGhxS3Eo/hqdefault.jpg" alt="Gopnath Mahadev Monsoon">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>Valley of God — Monsoon Visit</h4>
+          <p>DJI Osmo Action 3 · Aug 2024</p>
+          <a href="https://www.youtube.com/watch?v=wwtSGhxS3Eo" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('042u3U7GK5M','ગોપનથ મહાદેવ | Gopnath Mahadev Travel Vlog')">
+          <img src="https://img.youtube.com/vi/042u3U7GK5M/hqdefault.jpg" alt="Gopnath Mahadev Gujarati vlog">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>ગોપનથ મહાદેવ — Travel Vlog</h4>
+          <p>Travel &amp; Tech · Nov 2021</p>
+          <a href="https://www.youtube.com/watch?v=042u3U7GK5M" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('FpTWzucUZUY','ગોપનાથ મહાદેવ મોટી ગોપ — Hill Station')">
+          <img src="https://img.youtube.com/vi/FpTWzucUZUY/hqdefault.jpg" alt="Gopnath Hill Station">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>ગોપનાથ — Hill Station Vlog</h4>
+          <p>Moti Gop · Sep 2022</p>
+          <a href="https://www.youtube.com/watch?v=FpTWzucUZUY" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('K93UYOOxC4I','The Gop Hill — RJ Photography Hub')">
+          <img src="https://img.youtube.com/vi/K93UYOOxC4I/hqdefault.jpg" alt="Gop Hill Photography">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>The Gop Hill — Photography</h4>
+          <p>RJ's Photography Hub · Aug 2021</p>
+          <a href="https://www.youtube.com/watch?v=K93UYOOxC4I" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('0uCKFNLX9OE','Gopnath Mahadev Temple Moti Gop Jamnagar')">
+          <img src="https://img.youtube.com/vi/0uCKFNLX9OE/hqdefault.jpg" alt="Gopnath Mahadev temple">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>Gopnath Mahadev — Temple Darshan</h4>
+          <p>Moti Gop · Aug 2023</p>
+          <a href="https://www.youtube.com/watch?v=0uCKFNLX9OE" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('LEVgyMe6Dac','ગોપનાથ મહાદેવ મંદિર જામનગર | Gopnath Mahadev Temple')">
+          <img src="https://img.youtube.com/vi/LEVgyMe6Dac/hqdefault.jpg" alt="Gopnath Mahadev Jamnagar">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>ગોપનાથ મહાદેવ મંદિર જામનગર</h4>
+          <p>Full Temple Tour · Aug 2023</p>
+          <a href="https://www.youtube.com/watch?v=LEVgyMe6Dac" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('6NbtTdqcjL8','ગોપનાથ મહાદેવ મોટીગોપ — Hill Station Vlog')">
+          <img src="https://img.youtube.com/vi/6NbtTdqcjL8/hqdefault.jpg" alt="Gopnath Mahadev Moti Gop Hill">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>ગોપનાથ — Moti Gop Hill Vlog</h4>
+          <p>MR3105 Unseen · Aug 2022</p>
+          <a href="https://www.youtube.com/watch?v=6NbtTdqcjL8" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('ykrnGj83hhM','Gopnath Mahadev Temple near Bhanvad Jamnagar')">
+          <img src="https://img.youtube.com/vi/ykrnGj83hhM/hqdefault.jpg" alt="Gopnath Mahadev Bhanvad">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>Temple near Bhanvad — Short Clip</h4>
+          <p>60 km from Jamnagar · Jul 2020</p>
+          <a href="https://www.youtube.com/watch?v=ykrnGj83hhM" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+
+      <!-- TEMPLATE: TO ADD MORE VIDEOS, COPY THE BLOCK BELOW AND CHANGE 'YOUTUBE_ID' AND 'TITLE' -->
+      <!--
+      <div class="video-card">
+        <div class="video-thumb" onclick="playVideo('YOUTUBE_ID','TITLE')">
+          <img src="https://img.youtube.com/vi/YOUTUBE_ID/hqdefault.jpg" alt="TITLE">
+          <div class="play-btn" aria-label="Play video"></div>
+        </div>
+        <div class="video-info">
+          <h4>GUJARATI OR ENGLISH TITLE</h4>
+          <p>SHORT DESCRIPTION</p>
+          <a href="https://www.youtube.com/watch?v=YOUTUBE_ID" target="_blank" class="video-yt-link">▶ YouTube ↗</a>
+        </div>
+      </div>
+      -->
+
+    </div>
+
+    <p style="text-align:center; margin-top:2rem; font-family: 'Cinzel', serif; font-size:0.8rem; color:rgba(255,240,200,0.35); letter-spacing:0.1em;">
+      ▶ Click any video above to play inline &nbsp;·&nbsp;
+      <a href="https://www.youtube.com/results?search_query=gopnath+mahadev+moti+gop+jamnagar" target="_blank" style="color:rgba(200,148,28,0.7); text-decoration:none;">More on YouTube ↗</a>
+    </p>
+  </div>
+</section>
+
+<!-- HISTORY IN GUJARATI -->
+<section style="background: #1C1209; color: #FFF8E7; padding: 4rem 1.5rem;">
+  <div class="container">
+    <div class="section-label" style="color: #F5C843;">માહિતગાર બનો</div>
+    <h2 class="section-title" style="color: #FFF8E7;">મંદિરનો ટૂંકો ઈતિહાસ</h2>
+    <div class="gold-line"></div>
+    <div style="font-family: 'Tiro Devanagari Sanskrit', serif; line-height: 1.8; font-size: 1.1rem; color: rgba(255,248,231,0.8);">
+      <p style="margin-bottom: 1.2rem;">૧. ગોપનાથ મહાદેવનું આ મંદિર જામનગરથી આશરે ૬૦ કિલોમીટર દૂર મોટી ગોપ ગામ પાસે એક ડુંગર પર આવેલું છે.</p>
+      <p style="margin-bottom: 1.2rem;">૨. પૌરાણિક કથા મુજબ, ભગવાન શ્રીકૃષ્ણની સલાહથી ગોપીઓએ આ શિવલિંગની સ્થાપના કરી હતી, તેથી તેનું નામ 'ગોપનાથ' પડ્યું છે.</p>
+      <p style="margin-bottom: 1.2rem;">૩. મંદિરની સ્થાપત્યશૈલી ૬ઠ્ઠી સદીની છે, જે તેને ગુજરાતના સૌથી જૂના પથ્થરના મંદિરોમાંનું એક બનાવે છે.</p>
+      <p>૪. ચોમાસામાં અહીંનું વાતાવરણ અત્યંત મનોહર હોય છે અને ચારેબાજુ હરિયાળી જોવા મળે છે.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="section-label">Itihas</div>
+        <h2 class="section-title">Temple History</h2>
+        <div class="gold-line"></div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">6th Century CE · Maitraka Period</div>
+            <p class="timeline-text">The Gop Temple is established — one of the earliest surviving stone temples in Gujarat. The original structure features a square plan with pyramidal masonry roof, 23 feet high, built on the hilltop above the Vartu River.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Puranic Legend</div>
+            <p class="timeline-text">After the Rasalila, the Gopis fashioned a Shivalinga from their own ornaments at Lord Krishna's suggestion to seek blessings from Mahadev. Thus the deity became known as <em>Gopnath</em> — "Lord of the Gopis."</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">15th Century</div>
+            <p class="timeline-text">The Waja Rathod monarch of Zanzmer, Lagdhirsingh Rathod, grants 1,300 bighas of land to the temple. The Gohil royal family reconstructs the shrine following earlier damage.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">16th Century</div>
+            <p class="timeline-text">The temple withstands invasions. Local Hindu communities and the Rathore royals of Zanzmer unite to protect the shrine. The last major attack is repelled by a small but determined group of defenders.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Present Day</div>
+            <p class="timeline-text">A living pilgrimage site rated 4.7/5 on Google Maps. Wind farms now surround the hill. Minimal entry fee of ₹10. Open 24 hours. Best visited at dawn, dusk, or during the monsoon season.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label">Nearest Jinavari Temple</div>
+        <h2 class="section-title">Kan Kankri &<br>Jinavari</h2>
+        <div class="gold-line"></div>
+        <p style="color:var(--muted); line-height:1.9; margin-bottom:1.2rem;">The area around Moti Gop is rich with ancient sacred sites. The Jinavari (Zinvari) village, also known as Nana or Juna Gop, lies just east of Gop village. This is the site of the famous <strong>Gop Sun Temple</strong>, dating to the same Maitraka period.</p>
+        <p style="color:var(--muted); line-height:1.9; margin-bottom:1.2rem;">The "Kan Kankri" route along the Jamnagar–Porbandar highway passes through a corridor of ancient Shiva temples — from Bholeshwar Mahadev, through Gopnath Mahadev on Gop Hill, to Ashapura Mata and standing Lord Ganesha at Ghumli, and onward to Kileshwara Mahadev in the Barda Wildlife Reserve.</p>
+        <div class="info-card" style="margin-top:1.5rem;">
+          <div class="info-icon">📍</div>
+          <h4>Gop Sun Temple (Jinavari)</h4>
+          <p>Zinavari village, Jamjodhpur Taluka — one of the earliest surviving stone temples in Gujarat, built on a hilltop on the banks of the Vartu River. The pyramidal masonry roof and arch-like <em>gavaksha</em> windows reflect 6th-century Maitraka craftsmanship.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT INFO -->
+<section id="visit" style="background:#F2EAD8;">
+  <div class="container">
+    <div class="section-label">Yatra Planning</div>
+    <h2 class="section-title">Plan Your Visit</h2>
+    <div class="gold-line"></div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">🕐</div>
+        <h4>Temple Hours</h4>
+        <p>Open 24 hours, 7 days a week, all year round. Best time: <strong>5–7 AM</strong> for morning aarti, or <strong>5–7 PM</strong> for sunset views. Monsoon season (July–September) is most scenic.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🛣️</div>
+        <h4>How to Reach</h4>
+        <p>Located ~60 km from Jamnagar, ~31 km from Bhanvad, ~125 km from Rajkot. Two routes to the hilltop — stairs (traditional) or motorable road for vehicles. Reachable by car or bike.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🎟️</div>
+        <h4>Entry & Facilities</h4>
+        <p>Minimal entry fee of ₹10. Facilities include hostel accommodation, cowshed (gaushala), and basic amenities. No large commercial development — a peaceful, simple pilgrimage.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🌿</div>
+        <h4>Best Season</h4>
+        <p>Monsoon (July–Sept) for lush green hills and mist. Winter (Oct–Feb) for clear skies and comfortable weather. Avoid peak summer heat. Shravan Amavasya draws the largest crowds.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🌅</div>
+        <h4>Nearby Attractions</h4>
+        <p>Wind farms adjacent to the hill offer dramatic photo opportunities. The Gop Sun Temple (Jinavari) is minutes away. Ghumli ruins with Ashapura Mata and standing Ganesh statue are en route.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🙏</div>
+        <h4>Special Days</h4>
+        <p>Shravan Amavasya (new moon in the holy month of Shravan) draws devotees in the thousands. Mahashivratri is another major festival. Regular Monday Shiva prayers draw local devotees weekly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map" class="map-section">
+  <div class="container">
+    <div class="section-label" style="color:rgba(200,148,28,0.8)">Location</div>
+    <h2 class="section-title section-title-light">Find the Temple</h2>
+    <div class="gold-line"></div>
+
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3716.4!2d69.9246727!3d22.047254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3957a6e5d3c6eebd%3A0xc0e097e3b98e4e9!2sGopnath%20Mahadev!5e0!3m2!1sen!2sin!4v1715000000000!5m2!1sen!2sin"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Gopnath Mahadev Temple location on Google Maps">
+      </iframe>
+      <div class="map-overlay-info">
+        <div class="map-info-item">
+          <div class="label">Coordinates</div>
+          <div class="value">22.0473°N, 69.9247°E</div>
+        </div>
+        <div class="map-info-item">
+          <div class="label">Address</div>
+          <div class="value">Moti Gop, Gujarat 360515</div>
+        </div>
+        <div class="map-info-item">
+          <div class="label">Distance from Jamnagar</div>
+          <div class="value">~60 km via NH27</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top:1.5rem;">
+      <a href="https://www.google.com/maps/place/Gopnath+Mahadev/@22.047254,69.9246727,17z" target="_blank"
+        style="font-family:'Cinzel',serif; font-size:0.8rem; letter-spacing:0.15em; color:rgba(200,148,28,0.8); text-decoration:none; text-transform:uppercase;">
+        Open in Google Maps ↗
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-label">Devotee Experiences</div>
+    <h2 class="section-title">What Visitors Say</h2>
+    <div class="gold-line"></div>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"It's very peaceful and soulful place to visit. Best time to go in monsoon and winter. Anyone can go there by car or bike. It's about 125 km from Rajkot. Har Har Mahadev."</p>
+        <div class="review-author">Google Maps Visitor</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Vast scenic avenues on all sides of temple. Best time for visiting is 5–7 pm. Windmill right adjacent to the hill will help you discover lot many thrilling photos. Way up to the temple is also exciting."</p>
+        <div class="review-author">Google Maps Visitor</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Wow, what an amazing view from the top side of temple! Amazing road through wind farm. Please visit Gopnath Mahadev temple specially in monsoon season. Natural view from mountain is like a paradise."</p>
+        <div class="review-author">Google Maps Visitor</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"One of the oldest surviving stone temples in Gujarat, dating back to the late 6th century Maitraka period. The temple blends ancient history, architectural intrigue, and breathtaking natural beauty."</p>
+        <div class="review-author">Heritage Traveller</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="https://www.google.com/maps/place/Gopnath+Mahadev/@22.047254,69.9246727,17z" target="_blank"
+        style="display:inline-block; font-family:'Cinzel',serif; font-size:0.8rem; letter-spacing:0.15em; color:var(--dark); text-decoration:none; text-transform:uppercase; border:1px solid var(--gold); padding:14px 32px;">
+        Read All 884 Reviews on Google ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider-deco">❋ &nbsp; ❋ &nbsp; ❋</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-om">ॐ</div>
+  <p style="margin-bottom:0.5rem; color:rgba(255,240,200,0.6);">GOPNATH MAHADEV · MOTI GOP · JAMNAGAR · GUJARAT 360515</p>
+  <p>Open 24 Hours · Entry ₹10 · Coordinates: 22.0473°N, 69.9247°E</p>
+  <p style="margin-top:1rem; opacity:0.4;">
+    <a href="https://www.google.com/maps/place/Gopnath+Mahadev/" target="_blank" style="color:inherit; text-decoration:none;">Google Maps</a>
+    &nbsp;·&nbsp;
+    <a href="https://myadhyatm.com/gopnath-mahadev-moti-gopjamnagargujarat/" target="_blank" style="color:inherit; text-decoration:none;">Temple Info</a>
+  </p>
+  <p style="margin-top:1.5rem; opacity:0.25; font-size:0.65rem;">ॐ नमः शिवाय</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+let ytPlayer;
+let apiReady = false;
+
+function onYouTubeIframeAPIReady() {
+  apiReady = true;
+}
+function openLightbox(el) {
+  const img = el.querySelector('img');
+  if (img) {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape'){closeLightbox();closePlayer();} });
+
+function playVideo(id, title) {
+  const wrap = document.getElementById('video-player-wrap');
+  const frame = document.getElementById('yt-player');
+  const titleEl = document.getElementById('yt-title');
+  const openLink = document.getElementById('yt-open-link');
+  const fallback = document.getElementById('yt-fallback');
+  const fallbackLink = document.getElementById('yt-fallback-link');
+  const ytUrl = 'https://www.youtube.com/watch?v=' + id;
+
+  /* Reset UI */
+  fallback.style.display = 'none';
+  frame.style.display = 'block';
+  titleEl.textContent = title || '';
+  openLink.href = ytUrl;
+  fallbackLink.href = ytUrl;
+  wrap.style.display = 'block';
+  wrap.scrollIntoView({ behavior:'smooth', block:'center' });
+
+  /* Use API to track load success */
+  let loaded = false;
+  
+  if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+    ytPlayer.destroy();
+  }
+
+  ytPlayer = new YT.Player('yt-player', {
+    videoId: id,
+    host: 'https://www.youtube-nocookie.com',
+    playerVars: {
+      'autoplay': 1,
+      'mute': 1,
+      'rel': 0,
+      'modestbranding': 1,
+      'playsinline': 1,
+      'enablejsapi': 1,
+      'origin': window.location.origin === 'null' ? 'http://localhost' : window.location.origin
+    },
+    events: {
+      'onReady': (e) => {
+        loaded = true;
+        e.target.playVideo();
+      },
+      'onError': () => {
+        showFallback(fallback, frame);
+      }
+    }
+  });
+
+  /* If onReady doesn't fire in 4s, it's likely Error 153 or local file block */
+  clearTimeout(frame._errorTimer);
+  frame._errorTimer = setTimeout(() => {
+    if (!loaded) {
+      showFallback(fallback, frame);
+    }
+  }, 4500);
+}
+
+function showFallback(fallback, frame) {
+  frame.style.display = 'none';
+  fallback.style.display = 'flex';
+}
+
+function closePlayer() {
+  const wrap = document.getElementById('video-player-wrap');
+  const frame = document.getElementById('yt-player');
+  if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+    ytPlayer.destroy();
+  }
+  clearTimeout(frame._errorTimer);
+  wrap.style.display = 'none';
+  document.getElementById('yt-fallback').style.display = 'none';
+}
+
+function handleFileSelect(input) {
+  const files = input.files;
+  if (files.length > 0) {
+    document.getElementById('upload-form').submit();
+  }
+}
+
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior:'smooth' });
+  });
+});
+</script>
+</body>
+</html>
