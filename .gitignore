@@ -1,0 +1,21 @@
+# Virtual environments
+venv/
+env/
+myenv/
+menv/
+
+# SQLite databases
+ok*
+ok.html
+ok.py
+ok1.py
+
+# Cache files
+__pycache__
+.gitattributes
+chatbot.zip
+
+media/
+static/
+config/
+logs/

@@ -49,21 +49,25 @@
 
   .hero-img {
     position: absolute; inset: 0;
-    background-image: url('https://www.jamnagar.org/gophill.jpg'), url('https://img.youtube.com/vi/wwtSGhxS3Eo/maxresdefault.jpg');
+    /* Prefer local high-quality media if present, fall back to remote sources */
+    background-image: url('{{ hero_image }}'), url('/media/gopnath.jpg'), url('/media/images_QXEUSXV.jfif'), url('https://www.jamnagar.org/gophill.jpg'), url('https://img.youtube.com/vi/wwtSGhxS3Eo/hqdefault.jpg');
     background-size: cover;
-    background-position: center top;
-    opacity: 0.45;
-    animation: heroZoom 20s ease-in-out infinite alternate;
+    background-position: center center;
+    opacity: 1; /* keep image fully visible, overlay controls darkness */
+    filter: brightness(0.92) contrast(1.05) saturate(1.05);
+    animation: heroZoom 24s ease-in-out infinite alternate;
   }
 
   @keyframes heroZoom {
-    from { transform: scale(1); }
-    to { transform: scale(1.08); }
-  }
+      from { transform: scale(1); }
+      to { transform: scale(1.03); }
+    }
 
   .hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(28,18,9,0.3) 0%, rgba(28,18,9,0.1) 40%, rgba(28,18,9,0.8) 100%);
+    /* lighter overlay preserves image clarity while keeping text readable */
+    background: linear-gradient(to bottom, rgba(28,18,9,0.15) 0%, rgba(28,18,9,0.08) 40%, rgba(28,18,9,0.42) 100%);
+    pointer-events: none;
   }
 
   .hero-deco {
@@ -723,6 +727,9 @@
   <a href="#visit">Visit</a>
   <a href="#map">Map</a>
   <a href="#reviews">Reviews</a>
+  {% if not request.user.is_authenticated %}
+  <a href="/admin/login/?next=/admin/">Admin Login</a>
+  {% endif %}
 </nav>
 
 <!-- ABOUT -->
@@ -731,7 +738,7 @@
     <div class="about-grid">
       <div class="about-img-wrap">
         <div class="about-frame"></div>
-        <img src="https://www.jamnagar.org/g1.jpg"
+           <img src="/media/images.jfif"
              onerror="this.src='https://img.youtube.com/vi/K93UYOOxC4I/maxresdefault.jpg'"
              alt="Gopnath Mahadev Temple"
              class="about-img">
@@ -789,25 +796,87 @@
     <h2 class="section-title">Darshan & Views</h2>
     <div class="gold-line"></div>
 
+    {% if request.user.is_staff %}
     <!-- Upload Button Section -->
-    <div style="margin-bottom: 2rem; display: flex; justify-content: flex-end;">
-      <form id="upload-form" method="POST" action="" enctype="multipart/form-data">
+    <div style="margin-bottom: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 1rem;">
+      <form id="upload-form" method="POST" action="" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:1rem; width:100%; max-width:400px;">
         {% csrf_token %}
-        <label for="gallery-upload" class="upload-btn">
-          Upload Photo / Video
-        </label>
-        <input type="file" id="gallery-upload" name="files" style="display: none;" multiple accept="image/*,video/*" onchange="handleFileSelect(this)">
+        <input type="hidden" name="form_type" value="upload">
+        <div style="display:flex; align-items:center; gap:1rem;">
+          <label for="gallery-upload" class="upload-btn">
+            Select Photo / Video
+          </label>
+          <input type="file" id="gallery-upload" name="files" style="display: none;" multiple accept="image/*,video/*" onchange="handleFileSelect(this)">
+          <button type="submit" id="submit-upload" style="display:none; font-family:'Cinzel',serif; font-size:0.75rem; letter-spacing:0.15em; color:white; text-transform:uppercase; border:none; background:var(--saffron); padding:12px 24px; cursor:pointer; transition:all 0.3s ease;">
+            Confirm Upload
+          </button>
+        </div>
+        <div id="preview-area" style="display:none; width:100%;">
+          <div style="font-family:'Cinzel',serif; color:var(--dark); font-size:0.95rem; letter-spacing:0.1em; margin-bottom:0.8rem;">Selected photo preview</div>
+          <img id="preview-image" src="" alt="Photo preview" style="width:100%; max-height:380px; object-fit:cover; border-radius:8px; box-shadow:0 20px 40px rgba(0,0,0,0.18);" />
+        </div>
       </form>
+      <div style="flex:1; min-width:240px; display:flex; flex-direction:column; gap:0.5rem;">
+        {% if messages %}
+        <div style="display:flex; flex-direction:column; gap:0.5rem; width:100%;">
+          {% for message in messages %}
+          <div style="padding:1rem; border-radius:8px; background: rgba(255,255,255,0.92); border:1px solid rgba(200,148,28,0.3); color: var(--dark); font-family:'Cinzel',serif; font-size:0.95rem;">
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
     </div>
+    {% elif request.user.is_authenticated %}
+    <div style="margin-bottom: 2rem; padding: 1.25rem 1.5rem; border-radius: 14px; background: rgba(250,244,233,0.9); border:1px solid rgba(200,148,28,0.25); color: var(--dark); font-family:'Cinzel',serif; font-size:0.95rem;">
+      You are logged in, but only administrators can upload gallery photos and videos. Please use an admin account or ask an admin to upload media.
+    </div>
+    {% else %}
+    <div style="margin-bottom: 2rem; padding: 1.25rem 1.5rem; border-radius: 14px; background: rgba(250,244,233,0.9); border:1px solid rgba(200,148,28,0.25); color: var(--dark); font-family:'Cinzel',serif; font-size:0.95rem;">
+      Photo and video uploads are restricted to site administrators. Please <a href="/admin/login/?next=/admin/" style="color:var(--dark); font-weight:700; text-decoration:underline;">login as an admin</a> to manage gallery media.
+    </div>
+    {% endif %}
 
-    <!-- Uploaded Files Section -->
-    {% if uploaded_urls %}
+    {% if media_items %}
     <div class="uploaded-gallery" style="margin-bottom: 2rem;">
-      <h3 style="font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem;">Your Uploaded Photos</h3>
-      <div class="uploaded-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
-        {% for url in uploaded_urls %}
-        <div class="uploaded-item" style="border: 1px solid var(--gold); border-radius: 8px; overflow: hidden;">
-          <img src="{{ url }}" alt="Uploaded image" style="width: 100%; height: 150px; object-fit: cover;" loading="lazy">
+      <h3 style="font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem;">Latest Uploaded Media</h3>
+      <div class="uploaded-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;">
+        {% for item in media_items %}
+        <div class="uploaded-item" style="border: 1px solid rgba(200,148,28,0.25); border-radius: 12px; overflow: hidden; background:#fff;">
+          {% if item.is_video %}
+          <video controls style="width:100%; height:180px; object-fit:cover; background:#000;" preload="metadata">
+            <source src="{{ item.file.url }}" type="video/mp4">
+            Your browser does not support video playback.
+          </video>
+          {% else %}
+          <img src="{{ item.file.url }}" alt="Uploaded media" style="width: 100%; height: 180px; object-fit: cover; display:block;" loading="lazy">
+          {% endif %}
+          {% if request.user.is_staff %}
+          <div style="padding: 0.75rem 0.9rem; background: #f9f4eb; color: var(--text); font-size:0.9rem; font-family:'Cinzel',serif; display:flex; justify-content:space-between; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <span style="font-weight:600;">Admin upload</span>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
+              {% if item.is_image %}
+              {% if item.is_hero %}
+              <span style="background:rgba(200,148,28,0.12); color:var(--dark); padding:0.35rem 0.75rem; border-radius:999px; font-size:0.8rem;">Hero image</span>
+              {% else %}
+              <form method="POST" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="set_hero">
+                <input type="hidden" name="media_id" value="{{ item.id }}">
+                <button type="submit" style="border:none; background:rgba(28,18,9,0.08); color:var(--dark); padding:0.45rem 0.85rem; border-radius:999px; font-size:0.8rem; cursor:pointer;">Set as hero</button>
+              </form>
+              {% endif %}
+              {% endif %}
+              <form method="POST" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="delete_media">
+                <input type="hidden" name="media_id" value="{{ item.id }}">
+                <button type="submit" style="border:none; background:rgba(255,105,70,0.12); color:#A33A0D; padding:0.45rem 0.85rem; border-radius:999px; font-size:0.8rem; cursor:pointer;">Delete</button>
+              </form>
+            </div>
+          </div>
+          {% endif %}
         </div>
         {% endfor %}
       </div>
@@ -818,7 +887,7 @@
 
       <!-- REAL PHOTO 1 — Gopnath Mahadev Temple (jamnagar.org) -->
       <div class="gallery-item tall" onclick="openLightbox(this)">
-        <img src="https://www.jamnagar.org/g1.jpg"
+        <img src="/media/images_LlToW3i.jfif"
              onerror="this.src='https://img.youtube.com/vi/K93UYOOxC4I/hqdefault.jpg'"
              alt="Gopnath Mahadev Temple" loading="lazy">
         <div class="caption">GOPNATH MAHADEV TEMPLE</div>
@@ -826,7 +895,7 @@
 
       <!-- REAL PHOTO 2 — Gopnath Hill (jamnagar.org) -->
       <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://www.jamnagar.org/gophill.jpg"
+        <img src="/media/images_QXEUSXV.jfif"
              onerror="this.src='https://img.youtube.com/vi/FpTWzucUZUY/hqdefault.jpg'"
              alt="Gopnath Hill" loading="lazy">
         <div class="caption">GOP HILL</div>
@@ -834,7 +903,7 @@
 
       <!-- REAL PHOTO 3 — 600 Steps to Gopnath (jamnagar.org) -->
       <div class="gallery-item" onclick="openLightbox(this)">
-        <img src="https://www.jamnagar.org/steps2gopnath.jpg"
+        <img src="/media/images_ldLnw5t.jfif"
              onerror="this.src='https://img.youtube.com/vi/042u3U7GK5M/hqdefault.jpg'"
              alt="600 Steps to Gopnath" loading="lazy">
         <div class="caption">600 STEPS TO THE TOP</div>
@@ -842,7 +911,7 @@
 
       <!-- YouTube maxres — Monsoon Valley of God (wide panorama) -->
       <div class="gallery-item wide" onclick="openLightbox(this)">
-        <img src="https://img.youtube.com/vi/wwtSGhxS3Eo/maxresdefault.jpg"
+        <img src="https://img.youtube.com/vi/wwtSGhxS3Eo/hqdefault.jpg"
              onerror="this.src='https://img.youtube.com/vi/wwtSGhxS3Eo/hqdefault.jpg'"
              alt="Gopnath Mahadev Monsoon Panorama" loading="lazy">
         <div class="caption">MONSOON · VALLEY OF GOD · HILLTOP PANORAMA</div>
@@ -1200,27 +1269,47 @@
     <h2 class="section-title">What Visitors Say</h2>
     <div class="gold-line"></div>
 
+    <div style="display:grid; gap:2rem; margin-bottom:2.5rem;">
+      <div style="padding:2rem; border-radius:18px; background:rgba(255,248,235,0.92); border:1px solid rgba(200,148,28,0.22);">
+        <h3 style="font-family:'Cinzel',serif; font-size:1.4rem; margin-bottom:1rem; color:var(--dark);">Share Your Experience</h3>
+        <form method="POST" action="" style="display:grid; gap:1rem;">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="review">
+          <div style="display:grid; gap:0.75rem; grid-template-columns:1fr 1fr;">
+            <input type="text" name="name" placeholder="Your name" style="padding:1rem; border-radius:10px; border:1px solid rgba(0,0,0,0.12); width:100%; font-family:'EB Garamond',serif;">
+            <input type="email" name="email" placeholder="Email (optional)" style="padding:1rem; border-radius:10px; border:1px solid rgba(0,0,0,0.12); width:100%; font-family:'EB Garamond',serif;">
+          </div>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
+            <label style="font-family:'Cinzel',serif; letter-spacing:0.1em; color:var(--dark);">Rating:</label>
+            <select name="rating" style="padding:1rem; border-radius:10px; border:1px solid rgba(0,0,0,0.12); font-family:'EB Garamond',serif;">
+              <option value="5">5 - Excellent</option>
+              <option value="4">4 - Very Good</option>
+              <option value="3">3 - Good</option>
+              <option value="2">2 - Fair</option>
+              <option value="1">1 - Needs Improvement</option>
+            </select>
+          </div>
+          <textarea name="comment" rows="5" placeholder="Tell us about your visit" style="padding:1rem; border-radius:12px; border:1px solid rgba(0,0,0,0.12); font-family:'EB Garamond',serif; width:100%;"></textarea>
+          {% if error_message %}
+          <div style="padding:1rem; border-radius:10px; background:#ffe9e5; border:1px solid #f1b2a9; color:#8b2a1a;">{{ error_message }}</div>
+          {% endif %}
+          <button type="submit" style="width:fit-content; padding:1rem 1.75rem; border:none; background:var(--dark); color:#fff; font-family:'Cinzel',serif; letter-spacing:0.12em; text-transform:uppercase; border-radius:999px; cursor:pointer;">Submit Review</button>
+        </form>
+      </div>
+
+    </div>
+
     <div class="reviews-grid">
+      {% for review in reviews %}
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"It's very peaceful and soulful place to visit. Best time to go in monsoon and winter. Anyone can go there by car or bike. It's about 125 km from Rajkot. Har Har Mahadev."</p>
-        <div class="review-author">Google Maps Visitor</div>
+        <div class="review-stars">★★★★★ <span style="font-size:0.8rem; color:rgba(0,0,0,0.5); font-family:'EB Garamond',serif;">{{ review.rating }}/5</span></div>
+        <p class="review-text">"{{ review.comment }}"</p>
+        <div class="review-author">{{ review.name|default:'Visitor' }}</div>
       </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Vast scenic avenues on all sides of temple. Best time for visiting is 5–7 pm. Windmill right adjacent to the hill will help you discover lot many thrilling photos. Way up to the temple is also exciting."</p>
-        <div class="review-author">Google Maps Visitor</div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Wow, what an amazing view from the top side of temple! Amazing road through wind farm. Please visit Gopnath Mahadev temple specially in monsoon season. Natural view from mountain is like a paradise."</p>
-        <div class="review-author">Google Maps Visitor</div>
-      </div>
-      <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"One of the oldest surviving stone temples in Gujarat, dating back to the late 6th century Maitraka period. The temple blends ancient history, architectural intrigue, and breathtaking natural beauty."</p>
-        <div class="review-author">Heritage Traveller</div>
-      </div>
+      {% empty %}
+      <div style="padding:2rem; border-radius:18px; background:rgba(255,248,235,0.92); border:1px solid rgba(200,148,28,0.22); color:var(--text);">
+        No visitor reviews yet. Be the first to share your experience of Gopnath Mahadev.</div>
+      {% endfor %}
     </div>
 
     <div style="text-align:center; margin-top:2.5rem;">
@@ -1349,7 +1438,17 @@ function closePlayer() {
 function handleFileSelect(input) {
   const files = input.files;
   if (files.length > 0) {
-    document.getElementById('upload-form').submit();
+    const previewArea = document.getElementById('preview-area');
+    const previewImage = document.getElementById('preview-image');
+    const submitBtn = document.getElementById('submit-upload');
+    const file = files[0];
+    if (file && file.type.startsWith('image/')) {
+      previewImage.src = URL.createObjectURL(file);
+      previewArea.style.display = 'block';
+    } else {
+      previewArea.style.display = 'none';
+    }
+    submitBtn.style.display = 'inline-block';
   }
 }
 
