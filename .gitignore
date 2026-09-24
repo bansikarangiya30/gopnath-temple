@@ -15,7 +15,6 @@ __pycache__
 .gitattributes
 chatbot.zip
 
-media/
 static/
 config/
 logs/
