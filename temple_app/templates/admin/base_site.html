@@ -1,0 +1,137 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Shree Gopnath Mahadev Admin{% endblock %}
+
+{% block branding %}
+<div id="site-name" style="display: flex; align-items: center; gap: 10px;">
+  <span style="font-size: 1.5rem; color: #FFD700;">ॐ</span>
+  <a href="{% url 'admin:index' %}" style="font-family: 'Cinzel', serif; font-weight: 700; color: #FFD700; text-decoration: none; font-size: 1.2rem; letter-spacing: 0.05em;">
+    GOPNATH MAHADEV ADMIN PORTAL
+  </a>
+</div>
+{% endblock %}
+
+{% block nav-global %}
+<a href="/" style="color: #FFD700; font-family: 'Cinzel', serif; font-size: 0.85rem; text-decoration: none; padding: 6px 14px; border: 1px solid rgba(212,175,55,0.4); border-radius: 20px; background: rgba(212,175,55,0.1); margin-right: 15px; display: inline-flex; align-items: center; gap: 6px;">
+  <span>🌐</span> View Live Website
+</a>
+{% endblock %}
+
+{% block usertools %}
+{% if has_permission %}
+<div class="admin-profile-dropdown" style="position: relative; display: inline-block;">
+  <button type="button" class="admin-avatar-btn" id="adminDropdownBtn" onclick="toggleAdminDropdown(event)" style="background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.5); color: #FFD700; padding: 6px 16px; border-radius: 30px; font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+    <span style="background: #FFD700; color: #0C0804; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">👤</span>
+    <span>{{ user.get_username|title }}</span>
+    <span style="font-size: 0.7rem; margin-left: 2px;">▼</span>
+  </button>
+
+  <div class="admin-menu-box" id="adminMenuBox" style="display: none; position: absolute; right: 0; top: 135%; width: 230px; background: #161009; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.85); z-index: 99999; padding: 8px 0; font-family: 'Plus Jakarta Sans', sans-serif;">
+    <div style="padding: 10px 16px; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+      <div style="font-size: 0.72rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; font-family: 'Cinzel', serif;">Logged in as</div>
+      <div style="font-size: 0.95rem; font-weight: 700; color: #FFD700; margin-top: 2px;">{{ user.get_username }}</div>
+    </div>
+
+    <a href="{% url 'admin:index' %}" class="admin-menu-item" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.88rem; transition: background 0.2s;">
+      <span style="font-size: 1rem;">🛡️</span> Admin Dashboard
+    </a>
+
+    <a href="/" class="admin-menu-item" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.88rem; transition: background 0.2s;">
+      <span style="font-size: 1rem;">🌐</span> View Live Website
+    </a>
+
+    <a href="{% url 'admin:password_change' %}" class="admin-menu-item" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.88rem; transition: background 0.2s;">
+      <span style="font-size: 1rem;">🔑</span> Change Password
+    </a>
+
+    <div style="height: 1px; background: rgba(212, 175, 55, 0.2); margin: 6px 0;"></div>
+
+    <form method="post" action="{% url 'admin:logout' %}" style="margin: 0;">
+      {% csrf_token %}
+      <button type="submit" class="admin-menu-item logout-btn" style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 10px 16px; color: #FF8888; font-size: 0.88rem; font-family: inherit; transition: background 0.2s;">
+        <span style="font-size: 1rem;">🚪</span> Log Out
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+function toggleAdminDropdown(e) {
+  e.stopPropagation();
+  var menu = document.getElementById('adminMenuBox');
+  if (menu.style.display === 'none' || menu.style.display === '') {
+    menu.style.display = 'block';
+  } else {
+    menu.style.display = 'none';
+  }
+}
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('adminMenuBox');
+  var btn = document.getElementById('adminDropdownBtn');
+  if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.style.display = 'none';
+  }
+});
+</script>
+{% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #120D08;
+    --secondary: #1C150D;
+    --accent: #D4AF37;
+    --header-bg: #0C0804;
+    --header-color: #FFD700;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+  }
+
+  #header {
+    background: #0C0804 !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.4) !important;
+    padding: 12px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .admin-avatar-btn:hover {
+    background: rgba(212, 175, 55, 0.3) !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4) !important;
+  }
+
+  .admin-menu-item:hover {
+    background: rgba(212, 175, 55, 0.15) !important;
+    color: #FFD700 !important;
+  }
+
+  .module h2, .inline-group h2, caption {
+    background: #1C150D !important;
+    color: #FFD700 !important;
+    font-family: 'Cinzel', serif !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3) !important;
+  }
+
+  .button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: linear-gradient(135deg, #FFE58F 0%, #D4AF37 50%, #9A7B1C 100%) !important;
+    color: #0C0804 !important;
+    font-family: 'Cinzel', serif !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: 20px !important;
+    padding: 8px 18px !important;
+  }
+
+  .button:hover, input[type=submit]:hover {
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5) !important;
+  }
+</style>
+{% endblock %}
