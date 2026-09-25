@@ -19,6 +19,7 @@ sitemaps = {
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("robots.txt", views.robots_txt, name="robots_txt"),
 
     path(
         "sitemap.xml",
