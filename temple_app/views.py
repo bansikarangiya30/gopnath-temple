@@ -1,6 +1,18 @@
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from temple_app.models import MediaItem, Review
+
+
+def robots_txt(request):
+    content = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "\n"
+        "Sitemap: https://gopnath-temple.onrender.com/sitemap.xml\n"
+    )
+    return HttpResponse(content, content_type="text/plain")
+
 
 
 def index(request):
