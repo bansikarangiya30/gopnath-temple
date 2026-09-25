@@ -798,7 +798,11 @@
 
     .bell-btn:active {
       transform: scale(0.95);
-      animation: bellRing 0.4s ease infinite alternate;
+    }
+
+    .bell-btn.ringing {
+      animation: bellRingActive 0.6s ease-in-out 3;
+      box-shadow: 0 0 70px rgba(255, 215, 0, 0.9), 0 0 100px rgba(255, 140, 0, 0.6);
     }
 
     @keyframes bellRing {
@@ -808,6 +812,43 @@
 
       100% {
         transform: rotate(12deg) scale(0.95);
+      }
+    }
+
+    @keyframes bellRingActive {
+      0% { transform: rotate(0deg) scale(1.05); }
+      20% { transform: rotate(-25deg) scale(1.15); }
+      40% { transform: rotate(20deg) scale(1.1); }
+      60% { transform: rotate(-15deg) scale(1.05); }
+      80% { transform: rotate(10deg) scale(1.02); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    .floating-mantra {
+      position: absolute;
+      pointer-events: none;
+      font-family: 'Tiro Devanagari Sanskrit', 'Hind', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFD700;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 140, 0, 0.7);
+      animation: floatUpMantra 2.5s ease-out forwards;
+      white-space: nowrap;
+      z-index: 100;
+    }
+
+    @keyframes floatUpMantra {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(0.8);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translateY(-50px) scale(1.2);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-110px) scale(1.4);
       }
     }
 
@@ -1695,27 +1736,100 @@
   <!-- AUDIO SYNTHESIZER FOR TEMPLE BELL -->
   <script>
     function ringTempleBell() {
+      const bellBtn = document.querySelector('.bell-btn');
+      if (bellBtn) {
+        bellBtn.classList.remove('ringing');
+        void bellBtn.offsetWidth; // trigger reflow
+        bellBtn.classList.add('ringing');
+        setTimeout(() => bellBtn.classList.remove('ringing'), 1800);
+
+        // Create floating "ॐ नमः शिवाय" visual animation
+        const bellContainer = document.querySelector('.bell-container');
+        if (bellContainer) {
+          const mantraEl = document.createElement('div');
+          mantraEl.className = 'floating-mantra';
+          mantraEl.textContent = 'ॐ नमः शिवाय';
+          mantraEl.style.left = (bellBtn.offsetLeft + bellBtn.offsetWidth / 2 - 60) + 'px';
+          mantraEl.style.top = (bellBtn.offsetTop - 20) + 'px';
+          bellContainer.style.position = 'relative';
+          bellContainer.appendChild(mantraEl);
+          setTimeout(() => mantraEl.remove(), 2500);
+        }
+      }
+
+      // 1. Play Authentic Multi-Harmonic Metallic Temple Bell Sound (Web Audio API)
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+        if (AudioContext) {
+          const ctx = new AudioContext();
+          if (ctx.state === 'suspended') {
+            ctx.resume();
+          }
 
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(880, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 1.8);
+          // Bell Fundamental & Harmonic Frequencies (Brass Temple Ghanti Acoustic Model)
+          const baseFreq = 528; // Sacred Solfeggio frequency / Ghanti pitch
+          const harmonics = [
+            { freqRatio: 1.0,  gain: 0.65, decay: 3.5 },
+            { freqRatio: 2.0,  gain: 0.45, decay: 2.8 },
+            { freqRatio: 2.76, gain: 0.35, decay: 2.2 },
+            { freqRatio: 3.25, gain: 0.25, decay: 1.8 },
+            { freqRatio: 4.0,  gain: 0.2,  decay: 1.4 },
+            { freqRatio: 5.4,  gain: 0.15, decay: 1.0 }
+          ];
 
-        gain.gain.setValueAtTime(0.6, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.8);
+          const masterGain = ctx.createGain();
+          masterGain.gain.setValueAtTime(0.7, ctx.currentTime);
+          masterGain.connect(ctx.destination);
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
+          harmonics.forEach(h => {
+            const osc = ctx.createOscillator();
+            const g = ctx.createGain();
 
-        osc.start();
-        osc.stop(ctx.currentTime + 1.8);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(baseFreq * h.freqRatio, ctx.currentTime);
+
+            g.gain.setValueAtTime(0.001, ctx.currentTime);
+            g.gain.linearRampToValueAtTime(h.gain, ctx.currentTime + 0.01); // sharp attack
+            g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + h.decay); // bell resonance decay
+
+            osc.connect(g);
+            g.connect(masterGain);
+
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + h.decay);
+          });
+        }
       } catch (e) {
         console.log('Audio error:', e);
+      }
+
+      // 2. Speak "ॐ नमः शिवाय" Chant via Web Speech Synthesis
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel(); // cancel previous if any
+
+          const utterance = new SpeechSynthesisUtterance("ॐ नमः शिवाय");
+          utterance.rate = 0.85; // Serene chant rate
+          utterance.pitch = 0.95; // Reverent deep tone
+          utterance.volume = 1.0;
+
+          // Load voices & find Indian/Hindi voice if available
+          const voices = window.speechSynthesis.getVoices();
+          const hindiVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('sa') || v.name.includes('Hindi'));
+          if (hindiVoice) {
+            utterance.voice = hindiVoice;
+            utterance.lang = hindiVoice.lang;
+          } else {
+            utterance.lang = 'hi-IN';
+          }
+
+          // Trigger speech slightly delayed for realistic chime timing
+          setTimeout(() => {
+            window.speechSynthesis.speak(utterance);
+          }, 200);
+        }
+      } catch (e) {
+        console.log('Speech synthesis error:', e);
       }
     }
 
