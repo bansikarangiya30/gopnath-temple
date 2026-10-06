@@ -27,3 +27,18 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.name or 'Guest'} — {self.rating}★"
+
+
+class VisitorLog(models.Model):
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    session_key = models.CharField(max_length=255, blank=True, db_index=True)
+    visited_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-visited_at']
+        verbose_name = 'Visitor Log'
+        verbose_name_plural = 'Visitor Logs'
+
+    def __str__(self):
+        return f"Visitor from {self.ip_address or 'Unknown IP'} on {self.visited_at.strftime('%Y-%m-%d %H:%M')}"
+

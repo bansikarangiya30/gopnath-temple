@@ -26,3 +26,14 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ('name', 'rating', 'created_at')
     list_filter = ('rating', 'created_at')
     search_fields = ('name', 'email', 'comment')
+
+
+from temple_app.models import VisitorLog
+
+@admin.register(VisitorLog)
+class VisitorLogAdmin(admin.ModelAdmin):
+    list_display = ('id', 'ip_address', 'session_key', 'visited_at')
+    list_filter = ('visited_at',)
+    search_fields = ('ip_address', 'session_key')
+    readonly_fields = ('visited_at',)
+
