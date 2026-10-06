@@ -37,18 +37,28 @@ def index(request):
     session_key = request.session.session_key or ""
     client_ip = get_client_ip(request)
 
+    total_visits = 0
+    unique_visitors = 0
+
     if request.method == "GET":
-        today_start = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        already_logged = VisitorLog.objects.filter(
-            session_key=session_key,
-            visited_at__gte=today_start
-        ).exists() if session_key else False
+        try:
+            # Check if this IP address OR session key has EVER been logged
+            already_logged = False
+            if client_ip:
+                already_logged = VisitorLog.objects.filter(ip_address=client_ip).exists()
+            if not already_logged and session_key:
+                already_logged = VisitorLog.objects.filter(session_key=session_key).exists()
 
-        if not already_logged:
-            VisitorLog.objects.create(ip_address=client_ip, session_key=session_key)
+            if not already_logged:
+                VisitorLog.objects.create(ip_address=client_ip, session_key=session_key)
 
-    total_visits = VisitorLog.objects.count()
-    unique_visitors = VisitorLog.objects.values('session_key').distinct().count() or total_visits
+            total_visits = VisitorLog.objects.count()
+            unique_visitors = total_visits
+        except Exception:
+            total_visits = 1
+            unique_visitors = 1
+
+
 
     if request.method == "POST":
         form_type = request.POST.get('form_type')
