@@ -1,7 +1,17 @@
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from temple_app.models import MediaItem, Review
+from django.utils import timezone
+from temple_app.models import MediaItem, Review, VisitorLog
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 def robots_txt(request):
@@ -17,6 +27,28 @@ def robots_txt(request):
 
 def index(request):
     error_message = None
+
+    # Track visitor count
+    if not request.session.session_key:
+        try:
+            request.session.save()
+        except Exception:
+            pass
+    session_key = request.session.session_key or ""
+    client_ip = get_client_ip(request)
+
+    if request.method == "GET":
+        today_start = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
+        already_logged = VisitorLog.objects.filter(
+            session_key=session_key,
+            visited_at__gte=today_start
+        ).exists() if session_key else False
+
+        if not already_logged:
+            VisitorLog.objects.create(ip_address=client_ip, session_key=session_key)
+
+    total_visits = VisitorLog.objects.count()
+    unique_visitors = VisitorLog.objects.values('session_key').distinct().count() or total_visits
 
     if request.method == "POST":
         form_type = request.POST.get('form_type')
@@ -79,5 +111,8 @@ def index(request):
             'reviews': reviews,
             'hero_image': hero_image,
             'error_message': error_message,
+            'total_visits': total_visits,
+            'unique_visitors': unique_visitors,
         },
     )
+
